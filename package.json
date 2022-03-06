@@ -1,0 +1,44 @@
+{
+  "name": "ireporter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc mocha ./src/test --exit",
+    "start": "node ./src/app.js",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/.bin/coveralls.js",
+    "coverage": "nyc report --reporter=text-lcov | coveralls && nyc report --reporter=lcov",
+    "dev": "nodemon ./src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alao-Abiodun/iReporter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alao-Abiodun/iReporter/issues"
+  },
+  "homepage": "https://github.com/Alao-Abiodun/iReporter#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "expresss": "0.0.0",
+    "jest": "^27.5.1",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.3.0",
+    "sequelize": "^6.7.0",
+    "swagger-ui-express": "^4.1.6"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "coveralls": "^3.1.1",
+    "mocha": "^9.0.2",
+    "mocha-lcov-reporter": "^1.3.0",
+    "nodemon": "^2.0.12",
+    "nyc": "^15.1.0",
+    "supertest": "^6.1.5"
+  }
+}

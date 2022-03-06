@@ -1,0 +1,8 @@
+GET http://localhost:2111/api/v1/red-flags
+Content-Type: application/json;
+
+###
+
+GET http://localhost:2111/api/v1/red-flag/1
+Content-Type: application/json;
+

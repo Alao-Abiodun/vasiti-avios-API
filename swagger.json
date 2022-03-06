@@ -1,0 +1,369 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "iReporter App",
+        "description": "Corruption is a huge bane to Africa’s development. African countries must develop novel and localized solutions that will curb this menace, hence the birth of iReporter. iReporter enables any/every citizen to bring any form of corruption to the notice of appropriate authorities and the general public. Users can also report on things that needs government intervention",
+        "license": {
+            "name": "MIT",
+            "url": "http://www.opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:2112",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "Users",
+            "description": "API Creation for Users in the System"
+        },
+        {
+            "name": "Red-Flag",
+            "description": "API for Creation Red-Flag Record in the System"
+        }
+    ],
+    "schemes": ["http", "https"],
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "paths": {
+        "/api/v1/user": {
+            "post": {
+                "tags": ["Users"],
+                "description": "create new user into the system",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "User that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/UserSignUp"
+                        }
+                    }
+                ] ,
+                "produces": ["application/json"],
+                "responses": {
+                    "201": {
+                        "description": "New User created successfully",
+                        "schema": {
+                            "$ref": "#/definitions/UserSignUp"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/user/login": {
+            "post": {
+                "tags": ["Users"],
+                "description": "existing user in the system",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "existing user can login into the system",
+                        "schema": {
+                            "$ref": "#/definitions/userSignIn"
+                        }
+                    }
+                ],
+                "produces": ["application/json"],
+                "responses":{
+                    "200": {
+                        "description": "user login successfully",
+                        "schema": {
+                            "$ref": "#/definitions/userSignIn"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/red-flag": {
+            "post": {
+                "tags": ["Red-Flag"],
+                "description": "Create a new Red Flag",
+                "parameters": [
+                    {
+                        "name": "red-flag",
+                        "in": "body",
+                        "description": "user can create a Red-Flag",
+                        "schema": {
+                            "$ref":"#/definitions/RedFlag"
+                        }
+                    }
+                ],
+                "produces": ["application/json"],
+                "responses": {
+                    "201": {
+                        "description": "red-flag created successfully",
+                        "schema": {
+                            "$ref": "#/definitions/RedFlag"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/red-flags": {
+            "get": {
+                "tags": ["Red-Flag"],
+                "summary": "Get all red-flags",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Successfull retrieved all red-flags",
+                        "schema": {
+                            "$ref": "#/definitions/RedFlag"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/red-flags/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "An Id of a red-flag record we want to retrieved",
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "tags" : ["Red-Flag"],
+                "summary": "Get a Specific Red Flag",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "A specific red-flag",
+                        "schema": {
+                            "$ref":"#/definitions/RedFlag"
+                        }
+                    }
+                ],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "A Single Red Flag Record is retrieved",
+                        "schema": {
+                            "$ref": "#/definitions/RedFlag"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/red-flags/{id}/location": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "type": "integer",
+                    "description": "The id of red-flag location we want to update"
+                }
+            ],
+            "patch": {
+                "tags": ["Red-Flag"],
+                "summary": "Update Red-Flag Location Record",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "body request",
+                        "schema": {
+                            "$ref":"#/definitions/UpdateRedFlagLocation"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Red-Flag Location successfully updated",
+                        "schema": {
+                            "$ref":"#/definitions/RedFlag"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/red-flags/{id}/comment": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "type": "integer",
+                    "description": "The id of red-flag comment we want to update"
+                }
+            ],
+            "patch": {
+                "tags": ["Red-Flag"],
+                "summary": "Update Red-Flag Record Comment",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "body request",
+                        "schema": {
+                            "$ref":"#/definitions/UpdateRedFlagComment"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Red-Flag comment successfully updated",
+                        "schema": {
+                            "$ref":"#/definitions/RedFlag"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/red-flag/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "type": "integer",
+                    "description": "The id of red-flag we want to remove"
+                }
+            ],
+            "delete": {
+                "tags": ["Red-Flag"],
+                "summary": "Delete a Red-Flag Record",
+                "responses": {
+                    "200": {
+                        "description": "Red-Flag record deleted successfully.",
+                        "schema": {
+                            "$ref":"#/definitions/RedFlag"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "UserSignUp": {
+            "required":[
+                "id",
+                "firstname",
+                "lastname",
+                "othernames",
+                "email",
+                "phoneNumber",
+                "username",
+                "registered",
+                "isAdmin"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "uniqueItems": true
+                },
+                "firstname": {
+                    "type": "string"
+                },
+                "lastname": {
+                    "type": "string"
+                },
+                "othernames": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "phoneNumber" : {
+                    "type": "string"
+                },
+                "username" : {
+                    "type": "string"
+                },
+                "registered" : {
+                    "type": "string"
+                },
+                "isAdmin": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "userSignIn": {
+            "required": [
+                "email"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                }
+            }
+        },
+        "RedFlag": {
+            "required": [
+                "id",
+                "createdOn",
+                "createdBy",
+                "type",
+                "location",
+                "status",
+                "images",
+                "videos",
+                "comment"
+            ],
+            "properties":{
+                "id": {
+                    "type": "integer"
+                },
+                "createdOn": {
+                    "type": "date"
+                },
+                "createdBy": {
+                    "type": "date"
+                },
+                "type": {
+                   "type": "array",
+                   "items": {
+                       "type": "string"
+                   } 
+                },
+                "location": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "status": {
+                    "type": "enum"
+                },
+                "images": {
+                    "type": "images"
+                },
+                "videos": {
+                    "type": "videos"
+                },
+                "comment": {
+                    "type": "string"
+                }
+            }
+        },
+        "UpdateRedFlagLocation": {
+            "required": [
+                "location"
+            ],
+            "properties":{
+                "location": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "UpdateRedFlagComment": {
+            "required": [
+                "location"
+            ],
+            "properties":{
+                "comment": {
+                    "type": "comment"
+                }
+            }
+        }
+    }
+}

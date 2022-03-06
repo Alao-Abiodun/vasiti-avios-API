@@ -1,0 +1,37 @@
+language: node_js
+node_js:
+  - "14"
+
+services:
+  - mysql
+
+branches:
+  only:
+    - main
+
+install:
+  - npm install
+
+script:
+  - npm test
+
+before_install:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS test'
+
+# script:
+#   - istanbul cover ./node_modules/bin/_mocha --reporter lcovonly -- -R spec
+#   - codecov
+
+env:
+  global:
+    - ACCESS_TOKEN_SECRET=ireporter-access-token-secret
+    - CODECOV_TOKEN='bd7b11a3-9039-4e03-9c37-d3c481397a9f'
+
+# after_success:
+#   - npm run coveralls
+#   - npm run test
+
+deploy:
+  provider: heroku
+  api_key: 5e4a10e2-0e59-4cf7-9e12-a9e32609990f
+  app: ireporter-be
